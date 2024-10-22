@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Inventarios</title>
+</head>
+<body>
+    <h1>Lista de Inventarios</h1>
+    <ul>
+        {% for inventario in Inventarios %}
+            <li>ID: {{ inventario.id_inv }}, Store: {{ inventario.store }}, Nota: {{ inventario.nota_inv }}</li>
+        {% empty %}
+            <li>No hay inventarios disponibles.</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
