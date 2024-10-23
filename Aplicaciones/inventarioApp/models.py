@@ -45,3 +45,35 @@ class InvDet(models.Model):
 
     def __str__(self):
         return f"Detalle de Inv {self.id_inv.id_inv} - SKU {self.sku}"
+
+class Datos(models.Model):
+    id = models.AutoField(primary_key=True)  # Asegúrate de que `id` sea una clave primaria
+    posicion = models.IntegerField(default=0)
+    nombre_tienda = models.CharField(max_length=100)
+    m2 = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
+    correo = models.EmailField(max_length=100)
+    usuario_pc = models.CharField(max_length=100)
+    clave_pc = models.CharField(max_length=100)
+    nombre_pc = models.CharField(max_length=100)
+    nombre_anyDesk = models.CharField(max_length=50, null=True, blank=True)
+    direccion_ip = models.GenericIPAddressField()
+    centro_costo = models.CharField(max_length=6)
+    supervisor = models.CharField(max_length=20)
+    codSii = models.TextField()
+    almacen = models.CharField(max_length=4)
+    codSAP = models.CharField(max_length=5)
+    caja = models.IntegerField()
+    ppl_epos = models.CharField(max_length=2)
+    rtpro = models.BooleanField(default=False)  # tinyint(4) se puede representar como BooleanField
+    vyv_pos = models.BooleanField(default=False)  # tinyint(1) se puede representar como BooleanField
+    tel = models.CharField(max_length=32)
+    cel = models.CharField(max_length=32)
+    numero_rtpro = models.CharField(max_length=3)
+    version_plugins = models.CharField(max_length=15, null=True, blank=True)
+    direccion = models.CharField(max_length=100)
+    activo = models.BooleanField()
+    servidor = models.BooleanField(null=True, blank=True)  # tinyint(1) puede ser null
+    marca_tienda = models.CharField(max_length=8, null=True, blank=True)
+
+    def __str__(self):
+        return self.nombre_tienda

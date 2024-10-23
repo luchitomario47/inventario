@@ -76,13 +76,13 @@ WSGI_APPLICATION = 'inventario.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',  
+        'ENGINE': 'django.db.backends.mysql',
         'NAME': 'inventario',
         'USER': 'root',
         'PASSWORD': 'Tesis.123',
         'HOST': 'localhost',
         'PORT': '3300',
-    }
+    },
 }
 
 

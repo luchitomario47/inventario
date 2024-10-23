@@ -1,18 +1,70 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestión de Inventarios</title>
-</head>
-<body>
-    <h1>Lista de Inventarios</h1>
-    <ul>
-        {% for inventario in Inventarios %}
-            <li>ID: {{ inventario.id_inv }}, Store: {{ inventario.store }}, Nota: {{ inventario.nota_inv }}</li>
-        {% empty %}
-            <li>No hay inventarios disponibles.</li>
-        {% endfor %}
-    </ul>
-</body>
-</html>
+{% extends "./base.html" %}
+
+{% block title %}Gestión de Inventarios{% endblock %}
+
+{% block body %}
+    <h1>Gestión de Inventarios</h1>
+    <div class="row">
+        <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
+            <h2>Ingreso de Mercadería</h2>
+            <div class="card">
+                <div class="card-body">
+                    <form action="" method="POST">
+                        {% csrf_token %}  <!-- Agrega este token para la seguridad del formulario -->
+                        <div class="form-group">
+                            <input type="date" id="fecha" name="fecha" class="form-control" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="tiendaSelect">Selecciona una Tienda</label>
+                            <select id="tiendaSelect" name="tienda" class="form-control">
+                                <option value="">-- Selecciona una tienda --</option>
+                                {% for tienda in Tiendas %}
+                                    <option value="{{ tienda.numero_rtpro }}">{{ tienda.numero_rtpro|add:' ' }}{{ tienda.nombre_tienda }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>              
+                        <div class="form-group">
+                            <input type="number" id="zona" name="zona" class="form-control" placeholder="Zona" required >
+                        </div>
+                        <div class="form-group">
+                            <input type="number" id="cantidad" name="cantidad" class="form-control" placeholder="Cantidad" value="1" required readonly>
+                        </div>
+                        <div class="form-group">
+                            <input type="number" id="sku" name="sku" class="form-control" placeholder="SKU" required >
+                        </div>
+                        <button type="submit" class="btn btn-primary">Enviar</button>  <!-- Botón de envío -->
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-6 col-lg-8 col-xl-8">
+            <h2>Inventariado</h2>
+            <div class="table-responsive py-2">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Codigo</th>
+                            <th>Nombre</th>
+                            <th>Credito</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for i in Inventarios %}
+                        <tr>
+                            <td>{{i.id_inv}}</td>
+                            <td>{{i.store}}</td>
+                            <td>{{i.date_created}}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const today = new Date().toISOString().split('T')[0]; // Obtiene la fecha en formato YYYY-MM-DD
+            document.getElementById('fecha').value = today; // Asigna la fecha al campo
+        });
+    </script>
+{% endblock %}
